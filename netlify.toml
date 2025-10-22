@@ -1,0 +1,10 @@
+# Netlify config for ebhotdogs4halloween
+[build]
+  publish = "."   # Serve files from repo root
+  command = ""    # No build step
+
+# Redirects fallback (in case _redirects is ignored in some flows)
+[[redirects]]
+  from = "/thanks"
+  to = "/thanks.html"
+  status = 200
