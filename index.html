@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hot-dogs d'Halloween — Commande (FR/EN)</title>
+  <style>
+    :root{--bg1:#1d1b26;--bg2:#334155;--accent:#d35400;--panel:#ffffff;--ink:#0f172a;--ink2:#111827;--muted:#6b7280;--good:#0d9488}
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    body{margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:#fff;min-height:100vh}
+    .hero{padding:28px 16px 8px;text-align:center}
+    .hero h1{margin:0;font-size:clamp(22px,4vw,40px)}
+    .hero p{margin:6px 0;font-size:clamp(13px,2.2vw,18px)}
+    .badge{display:inline-block;margin-top:8px;padding:6px 10px;background:var(--accent);color:#fff;font-weight:700;border-radius:8px}
+    .panel{background:var(--panel); color:var(--ink); margin:14px auto 24px; padding:16px; border-radius:14px; width:min(920px,92%); box-shadow:0 6px 24px rgba(0,0,0,.25)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-weight:700;font-size:13px;color:var(--ink2)}
+    input[type="text"],input[type="email"],input[type="tel"],input[type="number"],textarea{width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:14px;background:#fff;color:#111827}
+    textarea{min-height:70px;resize:vertical}
+    .choices{display:flex;flex-wrap:wrap;gap:16px;margin-top:6px}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1.5px solid #e5e7eb;border-radius:999px;background:#fff}
+    .muted{color:var(--muted);font-size:13px}
+    .total{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed #e5e7eb;margin-top:10px;padding-top:10px}
+    .total strong{font-size:20px;color:var(--good)}
+    .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:12px}
+    button{padding:10px 14px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#fff}
+    .footer{font-size:12px;color:#e5e7eb;text-align:center;margin-bottom:18px}
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>HOT-DOGS D'HALLOWEEN !  |  HALLOWEEN HOTDOGS!</h1>
+    <p>École Boréale — <strong>31 oct.</strong>, 12 h–13 h  |  Oct 31, 12:00–1:00 PM</p>
+    <p>Repas : <strong>10 $</strong> (1 hot-dog + jus + friandise) • Suppléments : <strong>3 $</strong> chacun<br>
+       Meal: <strong>$10</strong> (1 hot dog + juice box + Halloween treat) • Extras: <strong>$3</strong> each</p>
+    <span class="badge">Paiement en espèces seulement • Payment is cash only</span>
+  </section>
+
+  <main class="panel">
+    <!-- Netlify Forms -->
+    <form name="hotdogs" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="thanks.html">
+      <input type="hidden" name="form-name" value="hotdogs">
+      <!-- Custom email subject for Netlify notifications -->
+      <input type="hidden" name="subject" data-remove-prefix value="New EB Halloween Hotdogs order — %{formName} (%{submissionId})">
+      <div style="display:none"><label>Don’t fill this out if you're human: <input name="bot-field"></label></div>
+
+      <div class="row">
+        <div class="field"><label for="student">Nom de l’élève / Student name</label><input id="student" name="student" required></div>
+        <div class="field"><label for="class">Classe / Class</label><input id="class" name="class" required></div>
+      </div>
+
+      <div class="row">
+        <div class="field"><label for="teacher">Enseignant·e / Teacher</label><input id="teacher" name="teacher"></div>
+        <div class="field"><label for="contact">Parent — Téléphone / Phone</label><input id="contact" name="parent_contact"></div>
+      </div>
+
+      <div class="row">
+        <div class="field"><label for="email">Courriel du parent / Parent Email (for receipts)</label><input id="email" name="email" type="email" placeholder="parent@example.com"></div>
+        <div class="field"></div>
+      </div>
+
+      <div class="field" style="margin-top:6px">
+        <label>Choix du repas / Meal selection</label>
+        <div class="choices">
+          <label class="chip"><input type="radio" name="meal_type" value="beef" required> Bœuf 100 % / All-beef</label>
+          <label class="chip"><input type="radio" name="meal_type" value="veg" required> Végétarien / Veggie</label>
+          <label class="chip"><input type="checkbox" name="gluten_free" value="yes"> Sans gluten (au besoin) / Gluten-free</label>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:8px">
+        <div class="field"><label for="meals">Nombre de repas (10 $ chacun) / Number of meals ($10 each)</label><input id="meals" name="meals" type="number" min="0" value="0" required></div>
+        <div class="field"><label for="extras">Hot-dogs supplémentaires (3 $ chacun) / Additional hot dogs ($3 each)</label><input id="extras" name="extras" type="number" min="0" value="0" required></div>
+      </div>
+
+      <div class="choices" style="margin-top:6px">
+        <span class="muted">Type des suppléments / Type for extras :</span>
+        <label class="chip"><input type="checkbox" name="extras_beef" value="yes"> Bœuf 100 % / All-beef</label>
+        <label class="chip"><input type="checkbox" name="extras_veg" value="yes"> Végétarien / Veggie</label>
+      </div>
+
+      <div class="field" style="margin-top:10px">
+        <label for="notes">Allergies / Notes</label>
+        <textarea id="notes" name="notes"></textarea>
+      </div>
+
+      <div class="choices" style="margin-top:10px">
+        <label class="chip"><input type="checkbox" name="can_volunteer" value="yes"> Je peux aider 12 h–13 h / I can help 12–1</label>
+      </div>
+
+      <div class="row" style="margin-top:6px">
+        <div class="field"><label for="vname">Nom du bénévole / Volunteer name</label><input id="vname" name="volunteer_name"></div>
+        <div class="field"><label for="vcontact">Contact du bénévole / Volunteer contact</label><input id="vcontact" name="volunteer_contact"></div>
+      </div>
+
+      <div class="total">
+        <span>Calcul : (# repas × 10 $) + (# suppléments × 3 $)</span>
+        <strong id="total_display">$0</strong>
+      </div>
+      <input type="hidden" name="computed_total" id="computed_total" value="$0">
+
+      <div class="actions"><button class="btn-primary" type="submit">Soumettre / Submit</button></div>
+
+      <div class="muted" style="margin-top:8px">
+        Questions ? Rihannon — <a href="mailto:r.kuzmin@hotmail.com">r.kuzmin@hotmail.com</a> — <a href="tel:+12049965287">204-996-5287</a>
+      </div>
+    </form>
+  </main>
+
+  <div class="footer">Formulaire bilingue FR/EN · Netlify Forms (stockage automatique)</div>
+
+  <script>
+    const meals=document.getElementById('meals'), extras=document.getElementById('extras');
+    const totalDisplay=document.getElementById('total_display'), totalHidden=document.getElementById('computed_total');
+    const MEAL=10, EXTRA=3;
+    function fmt(n){return new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'}).format(n)}
+    function recalc(){const m=+meals.value||0, e=+extras.value||0; const t=(m*MEAL)+(e*EXTRA); const f=fmt(t); totalDisplay.textContent=f; totalHidden.value=f;}
+    meals.addEventListener('input', recalc); extras.addEventListener('input', recalc); recalc();
+  </script>
+</body>
+</html>
